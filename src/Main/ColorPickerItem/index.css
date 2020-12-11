@@ -1,0 +1,6 @@
+.color_picker-item{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin: 0 5px 5px 0;
+}

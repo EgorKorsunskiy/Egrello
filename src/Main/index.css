@@ -1,0 +1,105 @@
+.main-body{
+    margin-left: 30vw;
+}
+.main-body .boards_list{
+    display: flex;
+    flex-wrap: wrap;
+}
+.main-body .label-p{
+    font-size: 24px;
+}
+.main-body .create-button{
+    width: 160px;
+    height: 100px;
+    background: rgba(9,30,66,.04);
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    color: #172b4d;
+}
+.main-body .create-button:hover{
+    background: rgba(9, 30, 66, 0.068);
+}
+.modal-body{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10vh;
+    outline: none;
+}
+.modal-body .create-input-container{
+    padding: 10px;
+    height: 76px;
+    width: 270px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+.modal-body .create-input-container .create-input{
+    width: 80%;
+    height: 30px;
+    border: none;
+    outline: none;
+    border-radius: 7px;
+    color: #fff;
+    font-size: 16px;
+}
+.modal-body .create-input-container .create-input:hover{
+    filter: brightness(110%);
+}
+.modal-body .create-input-container .create-input::-webkit-input-placeholder{
+    font-size: 16px;
+    color: #fff;
+}
+.modal-body .create-input-container .create-input::-moz-placeholder{
+    font-size: 16px;
+    color: #fff;
+}
+.modal-body .create-input-container .create-input:-moz-placeholder{
+    font-size: 16px;
+    color: #fff;
+}
+.modal-body .create-button{
+    width: 120px;
+    height: 30px;
+    background: #fff;
+    margin: 2px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    color: #172b4d;
+    cursor: pointer;
+}
+.modal-body .create-button:hover{
+    background:rgb(197, 197, 197);
+}
+.modal-body .create-button_disable{
+    width: 120px;
+    height: 30px;
+    background: #fff;
+    margin: 2px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    cursor: not-allowed;
+    color: gray;
+}
+.modal-body .close-button{
+    background: none;
+    border: none;
+    outline: none;
+    margin-left: 18px;
+    padding-bottom: 10px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+.modal-body .color_picker-container{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 105px;
+}
+.active-input{
+    filter: brightness(110%) !important;
+}
