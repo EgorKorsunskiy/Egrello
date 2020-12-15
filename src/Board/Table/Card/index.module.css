@@ -1,0 +1,10 @@
+.body{
+    color: #fff;
+    padding: 1vh;
+    margin-top: 1vh;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.body:hover{
+    filter: brightness(90%) !important;
+}

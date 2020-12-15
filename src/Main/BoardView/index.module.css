@@ -1,11 +1,11 @@
-.board_view-body{
+.body{
     width: 160px;
     height: 100px;
     border-radius: 5px;
     word-wrap: break-word;
     margin: 0 7px 7px 0;
 }
-.board_view-body p{
+.p{
     color: #fff;
     margin: 0;
     padding: 7px 12px;

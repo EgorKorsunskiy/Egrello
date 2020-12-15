@@ -1,16 +1,15 @@
 import { Link } from 'react-router-dom';
-import './index.css';
+import  styles  from './index.module.css';
 
 export const BoardView = (props) => {
-
     const clickHandler = () => {
-        props.updateColor(props.color)
+        props.updateColor(props.board.color)
     }
 
     return (
-        <Link to={`/board/${props.id}`} style={{textDecoration: 'none'}}>
-            <div className='board_view-body' style={{background: props.color}} onClick={clickHandler}>
-                <p>{props.title}</p>
+        <Link to={`/board/${props.board.id}`} style={{textDecoration: 'none'}}>
+            <div className={styles.body} style={{background: props.board.color}} onClick={clickHandler}>
+                <p className={styles.p}>{props.board.title}</p>
             </div>
         </Link>
     )

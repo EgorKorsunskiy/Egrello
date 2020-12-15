@@ -1,8 +1,8 @@
-import './index.css';
+import styles from './index.module.css';
 
 export const ColorPickerItem = (props) => {
 
     return (
-        <div className='color_picker-item' style={{background: props.color}} onClick={() => props.setColor(props.color)}></div>
+        <div className={styles.item} style={{background: props.color}} onClick={() => props.setColor(props.color)}></div>
     );
 }

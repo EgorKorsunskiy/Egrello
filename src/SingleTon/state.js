@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx"
+import { Board } from "../Module";
 
 export class BoardState {
     boards = [];
@@ -14,7 +15,7 @@ export class BoardState {
         }
     }
 
-    addBoard(addData){
-        this.boards.push(addData);
+    addBoard(title, color){
+        this.boards.push(new Board({id: this.boards.length,title,color}));
     }
 }
