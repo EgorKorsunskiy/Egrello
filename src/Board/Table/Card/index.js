@@ -1,5 +1,4 @@
 import { useDrag } from 'react-dnd';
-import { Draggable } from './Draggable/Draggable';
 import styles from './index.module.css';
 
 export const Card = (props) => {
@@ -13,8 +12,6 @@ export const Card = (props) => {
     })
 
     return(
-        <Draggable setX={props.setX} setY={props.setY}>
-            <div className={styles['body']} style={{background: props.color}} ref={drag}>{props.card.name}</div>
-        </Draggable>
+        <div className={styles['body'] + ' ' + 'toFind'} style={{background: props.color}} data-id={props.card.id} ref={drag}>{props.card.name}</div>
     );
 }

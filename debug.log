@@ -1,2 +1,5 @@
 [1213/180423.917:ERROR:directory_reader_win.cc(43)] FindFirstFile: Системе не удается найти указанный путь. (0x3)
 [1215/102510.105:ERROR:directory_reader_win.cc(43)] FindFirstFile: Системе не удается найти указанный путь. (0x3)
+[1215/204026.247:ERROR:process_reader_win.cc(151)] SuspendThread: Отказано в доступе. (0x5)
+[1215/204031.648:ERROR:exception_snapshot_win.cc(99)] thread ID 13920 not found in process
+[1215/204032.563:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: Попытка доступа к процессу, выполняющему процедуру завершения. (0xc000010a)
