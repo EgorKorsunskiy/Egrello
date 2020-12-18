@@ -18,39 +18,43 @@ export const Table = (props) => {
             setY(y);
         },
         drop: () => {
+            const fromTable = props.board.tables.find(table => table.id == item.TableId);
+            const fromCard = fromTable.cards.find(card => card.id == item.CardId);
+            let fromCardIndex = fromTable.cards.indexOf(fromCard);
              let cards = Array.from(document.querySelectorAll('.toFind'));
+             let cardIndexToDelete = cards.findIndex(card => card.dataset.id === fromCard.id);
              let cardsCoords = cards.map(link => {
                let rect = link.getBoundingClientRect();
                return [rect.x, rect.y];
              });
             
-             let distances = [];
+             let minDistance = 0
+             let minDistanceIndex = 0;
             
-             cardsCoords.forEach(cardCoord => {
+             cardsCoords.forEach((cardCoord, index) => {
                  let distance = Math.hypot(cardCoord[0]-parseInt(Xcoords), cardCoord[1]-parseInt(Ycoords));
-                 distances.push(parseInt(distance));
+                 if(index === cardIndexToDelete) return;
+                 minDistance = (distance < minDistance)?distance:minDistance;
+                 minDistanceIndex = (minDistance === distance)?++minDistanceIndex:minDistanceIndex;
                });
-            
-             let closestLinkIndex = distances.indexOf(Math.min(...distances));
-             let card = props.table.cards.find(card => card.id == cards[closestLinkIndex].dataset.id);
-             const fromTable = props.board.tables.filter(table => table.id == item.TableId)[0];
-             const fromCard = fromTable.cards.filter(card => card.id == item.CardId)[0];
+             let card = props.table.cards.find(card => card.id == cards[minDistanceIndex].dataset.id);
+             let cardIndex = props.table.cards.indexOf(card);
              if(fromTable.id == props.table.id){
-                const fromCardIndex = fromCard.index;
+                const IMfromCardIndex = fromCardIndex;
 
-                fromCard.index = card.index;
+                fromCardIndex = cardIndex;
 
-                card.index = fromCardIndex;
+                cardIndex = IMfromCardIndex;
 
-                fromTable.deleteCard(fromCard.id);
-                fromTable.deleteCard(card.id)
+                fromTable.deleteCard(fromCardIndex);
+                fromTable.deleteCard(cardIndex)
 
-                fromTable.addCardAtIndex(fromCard.name, fromCard.index);
-                fromTable.addCardAtIndex(card.name, card.index);
+                fromTable.addCardAtIndex(fromCard.name, fromCardIndex);
+                fromTable.addCardAtIndex(card.name, cardIndex);
              }
              else{
-                props.table.addCardAtIndex(fromCard.name, card?card.index:0);
-                fromTable.deleteCard(card, fromCard);
+                props.table.addCardAtIndex(fromCard.name, card?cardIndex:0);
+                fromTable.deleteCard(fromCardIndex);
              }
         },
         collect: (monitor) => ({item: monitor.getItem()})

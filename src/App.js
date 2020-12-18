@@ -11,7 +11,7 @@ const tinycolor = require('tinycolor2');
 
 function App(props) {
 
-  const [color, setColor] = useState('rgb(0, 121, 191)');
+  const [color, setColor] = useState(props.boardState.getDefaultColor());
   const brightenColor = tinycolor(color).brighten(15).toString();
 
   return (

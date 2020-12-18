@@ -1,13 +1,16 @@
 import { makeAutoObservable } from "mobx";
-import { Table } from "./Table/table";
+import { UID } from "../../utilits";
+import { Table } from "../Table/table";
 
 export class Board {
-    id = 0;
+    id = UID();
     title = '';
-    color = 'rgb(0, 121, 191)';
+    color = '';
     tables = []
 
     constructor( board ){
+
+        this.setDefaultColor(board.defaultColor);
 
         Object.assign( this, board );
 
@@ -16,5 +19,8 @@ export class Board {
 
     addTable(name){
         this.tables.push(new Table({id: this.tables.length, name}))
+    }
+    setDefaultColor(color){
+        this.color = color;
     }
 }
