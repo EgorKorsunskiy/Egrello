@@ -18,7 +18,11 @@ export class Board {
     }
 
     addTable(name){
-        this.tables.push(new Table({id: this.tables.length, name}))
+        this.tables.push(new Table({name}))
+    }
+    deleteTable(tableId){
+        const index = this.tables.findIndex(table => table.id = tableId);
+        this.tables.splice(index, 1);
     }
     setDefaultColor(color){
         this.color = color;

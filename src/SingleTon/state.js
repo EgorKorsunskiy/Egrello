@@ -16,7 +16,7 @@ export class BoardState {
     }
 
     addBoard(title, color){
-        this.boards.push(new Board({id: this.boards.length,title,color,defaultColor: this.availableColors[0]}));
+        this.boards.push(new Board({title,color,defaultColor: this.availableColors[0]}));
     }
 
     getDefaultColor(){

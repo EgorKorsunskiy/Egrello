@@ -3,7 +3,7 @@ import { UID } from "../../utilits";
 
 export class Card {
     id = UID();
-    tableId = 0;
+    tableId = '';
     name = '';
 
     constructor( card ){

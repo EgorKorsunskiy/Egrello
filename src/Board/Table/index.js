@@ -4,6 +4,9 @@ import { Card } from './Card';
 import styles from './index.module.css';
 
 const tinycolor = require('tinycolor2');
+const requirementClassName = '.toFind';
+
+const WINDOW_SQUARE = window.innerWidth * window.innerHeight;
 
 export const Table = (props) => {
 
@@ -18,42 +21,39 @@ export const Table = (props) => {
             setY(y);
         },
         drop: () => {
-            const fromTable = props.board.tables.find(table => table.id == item.TableId);
-            const fromCard = fromTable.cards.find(card => card.id == item.CardId);
-            let fromCardIndex = fromTable.cards.indexOf(fromCard);
-             let cards = Array.from(document.querySelectorAll('.toFind'));
-             let cardIndexToDelete = cards.findIndex(card => card.dataset.id === fromCard.id);
-             let cardsCoords = cards.map(link => {
-               let rect = link.getBoundingClientRect();
+             let cards = Array.from(document.querySelectorAll(requirementClassName));
+             cards = cards.filter(card => card.dataset.id !== item.CardId);
+             let cardsCoords = cards.map(card => {
+               let rect = card.getBoundingClientRect();
                return [rect.x, rect.y];
              });
-            
-             let minDistance = 0
+
+             let minDistance = WINDOW_SQUARE;
              let minDistanceIndex = 0;
             
-             cardsCoords.forEach((cardCoord, index) => {
+             cardsCoords.forEach(cardCoord => {
                  let distance = Math.hypot(cardCoord[0]-parseInt(Xcoords), cardCoord[1]-parseInt(Ycoords));
-                 if(index === cardIndexToDelete) return;
-                 minDistance = (distance < minDistance)?distance:minDistance;
-                 minDistanceIndex = (minDistance === distance)?++minDistanceIndex:minDistanceIndex;
+                 if(distance < minDistance){
+                    minDistanceIndex += (minDistance === WINDOW_SQUARE)?0:1;
+                    minDistance = distance;
+                 }
                });
-             let card = props.table.cards.find(card => card.id == cards[minDistanceIndex].dataset.id);
+             let card = props.table.cards.find(card => card.id === cards[minDistanceIndex].dataset.id);
              let cardIndex = props.table.cards.indexOf(card);
-             if(fromTable.id == props.table.id){
-                const IMfromCardIndex = fromCardIndex;
+             const fromTable = props.board.tables.find(table => table.id === item.TableId);
+             const fromCard = fromTable.cards.find(card => card.id === item.CardId);
+             let fromCardIndex = fromTable.cards.indexOf(fromCard);
+             if(fromTable.id === props.table.id){
+                const temp = fromCardIndex;
 
                 fromCardIndex = cardIndex;
 
-                cardIndex = IMfromCardIndex;
+                cardIndex = temp;
 
-                fromTable.deleteCard(fromCardIndex);
-                fromTable.deleteCard(cardIndex)
-
-                fromTable.addCardAtIndex(fromCard.name, fromCardIndex);
-                fromTable.addCardAtIndex(card.name, cardIndex);
+                fromTable.swapCards(fromCard, fromCardIndex, card, cardIndex);
              }
              else{
-                props.table.addCardAtIndex(fromCard.name, card?cardIndex:0);
+                props.table.addCardAtIndex(fromCard.name, card?cardIndex+1:0);
                 fromTable.deleteCard(fromCardIndex);
              }
         },
@@ -105,6 +105,7 @@ export const Table = (props) => {
                     </div>
                 </div>
             }
+            <button className={styles['button'] + ' ' + styles['fixedSizeButton']} style={{background: brightenColor, marginTop: '3%'}} onClick={() => {props.board.deleteTable(props.table.id); setTitle('')}}>Удалить</button>
         </div>
     );
 }

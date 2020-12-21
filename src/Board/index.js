@@ -9,7 +9,7 @@ export const Board = (props) => {
 
     const {id} = useParams();
     const currentBoard = props.boardState.boards.filter(el => el.id == id)[0];
-
+    
     const brightenColor = tinycolor(currentBoard.color).brighten(15).toString();
 
     const [isAddBoardFormOpen, setIsAddBoardFormOpen] = useState(false);
