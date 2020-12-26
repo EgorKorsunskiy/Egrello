@@ -1,4 +1,6 @@
 .body{
+    display: flex;
+    justify-content: space-between;
     color: #fff;
     padding: 1vh;
     margin-top: 1vh;
@@ -7,4 +9,11 @@
 }
 .body:hover{
     filter: brightness(90%) !important;
+}
+.button{
+    background: none;
+    border: none;
+    outline: none;
+    color:#fff;
+    cursor: pointer;
 }

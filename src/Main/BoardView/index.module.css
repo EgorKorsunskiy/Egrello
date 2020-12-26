@@ -1,4 +1,6 @@
 .body{
+    display: flex;
+    justify-content: space-between;
     width: 160px;
     height: 100px;
     border-radius: 5px;
@@ -11,4 +13,14 @@
     padding: 7px 12px;
     font-size: 20px;
     text-decoration: none;
+}
+.button{
+    background: none;
+    border: none;
+    outline: none;
+    color:#fff;
+    cursor: pointer;
+    height: 10px;
+    font-size: 16px;
+    padding: 10.5px 12px;
 }

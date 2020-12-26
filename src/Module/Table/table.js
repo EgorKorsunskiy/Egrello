@@ -30,7 +30,8 @@ export class Table {
         this.addCardAtIndex(fromCard.name, fromCardIndex);
         this.addCardAtIndex(card.name, cardIndex);
     }
-    deleteCard(index){
+    deleteCard(cardId){
+        const index = this.cards.findIndex(card => card.id === cardId);
         this.cards.splice(index, 1);
     }
 }

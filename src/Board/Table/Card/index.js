@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import { useDrag } from 'react-dnd';
 import styles from './index.module.css';
 
@@ -12,6 +13,8 @@ export const Card = (props) => {
     })
 
     return(
-        <div className={styles['body'] + ' ' + 'toFind'} style={{background: props.color}} data-id={props.card.id} ref={drag}>{props.card.name}</div>
+        <div className={styles['body'] + ' ' + 'toFindCards'} style={{background: props.color}} data-id={props.card.id} ref={drag}>
+            {props.card.name}
+        </div>
     );
 }

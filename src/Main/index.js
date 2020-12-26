@@ -22,6 +22,7 @@ export const MainPage = (props) => {
         props.boardState.boards.map((board, index) => {
             Elements.push(
                 <BoardView 
+                    boardState={props.boardState}
                     board={board}
                     updateColor={props.updateColor}
                     key={index}

@@ -9,10 +9,9 @@ export class BoardState {
         makeAutoObservable( this );
     }
 
-    deleteBoard(id){
-        if(this.boards.length){
-            this.boards.filter(el => el.id !== id)
-        }
+    deleteBoard(BoardId){
+        const index = this.boards.findIndex(board => board.id === BoardId);
+        this.boards.splice(index, 1);
     }
 
     addBoard(title, color){

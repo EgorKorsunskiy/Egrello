@@ -1,14 +1,15 @@
+import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
-import { useDrop } from 'react-dnd';
+import { useDrag, useDrop } from 'react-dnd';
 import { Card } from './Card';
 import styles from './index.module.css';
 
 const tinycolor = require('tinycolor2');
-const requirementClassName = '.toFind';
+const requirementClassName = '.toFindCards';
 
 const WINDOW_SQUARE = window.innerWidth * window.innerHeight;
 
-export const Table = (props) => {
+export const Table = observer((props) => {
 
     const [Xcoords, setX] = useState(0);
     const [Ycoords, setY] = useState(0);
@@ -60,6 +61,13 @@ export const Table = (props) => {
         collect: (monitor) => ({item: monitor.getItem()})
     })
 
+    const [, drag] = useDrag({
+        item: {
+        type: 'table',
+        TableId: props.table.id,
+    }
+    })
+
     const brightenColor = tinycolor(props.color).brighten(15).toString();
 
     const [isCreateCardFormOpen, setIsCreateCardFormOpen] = useState(false);
@@ -86,10 +94,11 @@ export const Table = (props) => {
 
     return(
         <div className={styles['body']} style={{background: props.color}} ref={drop}>
-            <p className={styles['title']}>{props.table.name}</p>
-            <div className={styles['cardContainer']}>
-                {drawCards()}
-            </div>
+            <div className='toFindTables' ref={drag} data-id={props.table.id}>
+                <p className={styles['title']}>{props.table.name}</p>
+                <div className={styles['cardContainer']}>
+                    {drawCards()}
+                </div>
             {
                 !isCreateCardFormOpen?
                 <button className={styles['button']} style={{background: brightenColor, marginTop: '7px'}} onClick={() => setIsCreateCardFormOpen(true)}>Добавить Карточку</button>:
@@ -107,5 +116,6 @@ export const Table = (props) => {
             }
             <button className={styles['button'] + ' ' + styles['fixedSizeButton']} style={{background: brightenColor, marginTop: '3%'}} onClick={() => {props.board.deleteTable(props.table.id); setTitle('')}}>Удалить</button>
         </div>
+        </div>
     );
-}
+})
