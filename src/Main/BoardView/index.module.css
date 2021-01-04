@@ -1,10 +1,10 @@
 .body{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; 
+    float: right;
     width: 160px;
     height: 100px;
     border-radius: 5px;
-    word-wrap: break-word;
     margin: 0 7px 7px 0;
 }
 .p{
@@ -23,4 +23,8 @@
     height: 10px;
     font-size: 16px;
     padding: 10.5px 12px;
+}
+.textContainer{
+    word-wrap: break-word;
+    max-width: 120px;
 }

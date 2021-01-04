@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react-lite';
 import { useDrag } from 'react-dnd';
 import styles from './index.module.css';
 
@@ -15,6 +14,7 @@ export const Card = (props) => {
     return(
         <div className={styles['body'] + ' ' + 'toFindCards'} style={{background: props.color}} data-id={props.card.id} ref={drag}>
             {props.card.name}
+            <button className={styles['button']} onClick={() => props.table.deleteCard(props.card.id)}>&#x2715;</button>
         </div>
     );
 }

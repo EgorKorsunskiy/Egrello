@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { Card } from './Card';
 import styles from './index.module.css';
@@ -11,15 +11,15 @@ const WINDOW_SQUARE = window.innerWidth * window.innerHeight;
 
 export const Table = observer((props) => {
 
-    const [Xcoords, setX] = useState(0);
-    const [Ycoords, setY] = useState(0);
+    const Xcoords = useRef(0);
+    const Ycoords = useRef(0);
 
     const [{item}, drop] = useDrop({
         accept: 'card',
         hover: (item,monitor) => {
             const {x, y} = monitor.getSourceClientOffset();
-            setX(x);
-            setY(y);
+            Xcoords.current = x;
+            Ycoords.current = y;
         },
         drop: () => {
              let cards = Array.from(document.querySelectorAll(requirementClassName));
@@ -33,17 +33,17 @@ export const Table = observer((props) => {
              let minDistanceIndex = 0;
             
              cardsCoords.forEach(cardCoord => {
-                 let distance = Math.hypot(cardCoord[0]-parseInt(Xcoords), cardCoord[1]-parseInt(Ycoords));
+                 let distance = Math.hypot(cardCoord[0]-Xcoords.current, cardCoord[1]-Ycoords.current);
                  if(distance < minDistance){
                     minDistanceIndex += (minDistance === WINDOW_SQUARE)?0:1;
                     minDistance = distance;
                  }
                });
-             let card = props.table.cards.find(card => card.id === cards[minDistanceIndex].dataset.id);
-             let cardIndex = props.table.cards.indexOf(card);
+             let cardIndex = props.table.cards.findIndex(card => card.id === cards[minDistanceIndex].dataset.id);
+             const card = props.table.cards[cardIndex];
              const fromTable = props.board.tables.find(table => table.id === item.TableId);
-             const fromCard = fromTable.cards.find(card => card.id === item.CardId);
-             let fromCardIndex = fromTable.cards.indexOf(fromCard);
+             let fromCardIndex = fromTable.cards.findIndex(card => card.id === item.CardId);
+             const fromCard = fromTable.cards[fromCardIndex];
              if(fromTable.id === props.table.id){
                 const temp = fromCardIndex;
 
@@ -51,11 +51,11 @@ export const Table = observer((props) => {
 
                 cardIndex = temp;
 
-                fromTable.swapCards(fromCard, fromCardIndex, card, cardIndex);
+                fromTable.swapCards(fromCardIndex,cardIndex);
              }
              else{
                 props.table.addCardAtIndex(fromCard.name, card?cardIndex+1:0);
-                fromTable.deleteCard(fromCardIndex);
+                fromTable.deleteCard(fromCard.id);
              }
         },
         collect: (monitor) => ({item: monitor.getItem()})
@@ -82,8 +82,6 @@ export const Table = observer((props) => {
                     card={card}
                     table={props.table}
                     color={brightenColor}
-                    setX={setX}
-                    setY={setY}
                     key={index}
                 />
             );

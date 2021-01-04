@@ -22,13 +22,11 @@ export class Table {
     addCardAtIndex(name, index){
         this.cards.splice(index, 0, new Card({tableId: this.id,name}));
     }
-    swapCards(fromCard, fromCardIndex, card, cardIndex){
+    swapCards(fromCardIndex, cardIndex){
+        const temp = this.cards[fromCardIndex];
 
-        this.deleteCard(fromCardIndex);
-        this.deleteCard(cardIndex - 1)
-
-        this.addCardAtIndex(fromCard.name, fromCardIndex);
-        this.addCardAtIndex(card.name, cardIndex);
+        this.cards[fromCardIndex] = this.cards[cardIndex];
+        this.cards[cardIndex] = temp;
     }
     deleteCard(cardId){
         const index = this.cards.findIndex(card => card.id === cardId);

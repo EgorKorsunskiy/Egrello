@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Table } from './Table';
 import styles from './index.module.css';
 import { observer } from 'mobx-react-lite';
@@ -12,22 +12,26 @@ const WINDOW_SQUARE = window.innerWidth * window.innerHeight;
 
 export const Board = observer((props) => {
 
+
+    useEffect(() => () => {
+        props.setIsFiltered(false);
+    },[])
+
     const {id} = useParams();
     const currentBoard = props.boardState.boards.find(el => el.id === id);
-
     const brightenColor = tinycolor(currentBoard.color).brighten(15).toString();
 
     const [isAddBoardFormOpen, setIsAddBoardFormOpen] = useState(false);
     const [title, setTitle] = useState('');
-    const [Xcoords, setX] = useState(0);
-    const [Ycoords, setY] = useState(0);
+    const Xcoords = useRef(0);
+    const Ycoords = useRef(0);
 
     const [{item},drop] = useDrop({
         accept: 'table',
         hover: (item,monitor) => {
             const {x, y} = monitor.getSourceClientOffset();
-            setX(x);
-            setY(y);
+            Xcoords.current = x;
+            Ycoords.current = y;
         },
         drop: () => {
             let tables = Array.from(document.querySelectorAll(requirementClassName));
@@ -41,30 +45,22 @@ export const Board = observer((props) => {
             let minDistanceIndex = 0;
            
             tablesCoords.forEach(tableoCord => {
-                let distance = Math.hypot(tableoCord[0]-parseInt(Xcoords), tableoCord[1]-parseInt(Ycoords));
+                let distance = Math.hypot(tableoCord[0]-Xcoords.current, tableoCord[1]-Ycoords.current);
                 if(distance < minDistance){
                    minDistanceIndex += (minDistance === WINDOW_SQUARE)?0:1;
                    minDistance = distance;
                 }
               });
 
-              let table = currentBoard.tables.find(table => table.id === tables[minDistanceIndex].dataset.id);
-              let tableIndex = currentBoard.tables.indexOf(table);
-              let fromTableCards = table.cards;
-              const fromTable = currentBoard.tables.find(table => table.id === item.TableId);
-              let fromTableIndex = currentBoard.tables.indexOf(fromTable);
-              let tableCards = fromTable.cards;
+              let tableIndex = currentBoard.tables.findIndex(table => table.id === tables[minDistanceIndex].dataset.id);
+              let fromTableIndex = currentBoard.tables.findIndex(table => table.id === item.TableId);
 
               const tempIndex = fromTableIndex;
-              const tempCards = fromTableCards;
  
               fromTableIndex = tableIndex;
-              fromTableCards = tableCards;
- 
               tableIndex = tempIndex;
-              tableCards = tempCards;
  
-              currentBoard.swapTables(fromTable, fromTableIndex, fromTableCards, table, tableIndex, tableCards);
+              currentBoard.swapTables(fromTableIndex,tableIndex);
        },
        collect: (monitor) => ({item: monitor.getItem()})
     });
@@ -72,7 +68,11 @@ export const Board = observer((props) => {
     const drawTables = () => {
         const Elements = [];
 
-        currentBoard.tables.map((table, index) => {
+        const tables = props.isFiltered?
+        currentBoard.tables.filter(table => table.name.includes(props.searchText)):
+        currentBoard.tables;
+
+        tables.map((table, index) => {
             Elements.push(
                 <Table 
                     table={table}

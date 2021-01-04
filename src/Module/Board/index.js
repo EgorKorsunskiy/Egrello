@@ -27,13 +27,11 @@ export class Board {
         const index = this.tables.findIndex(table => table.id === tableId);
         this.tables.splice(index, 1);
     }
-    swapTables(fromTable, fromTableIndex, fromTableCards, table, tableIndex, tableCards){
+    swapTables(fromTableIndex,tableIndex){
+        const temp = this.tables[fromTableIndex];
 
-        this.deleteTable(fromTableIndex);
-        this.deleteTable(tableIndex - 1)
-
-        this.addTableAtIndex(fromTable.name, fromTableIndex, fromTableCards);
-        this.addTableAtIndex(table.name, tableIndex, tableCards);
+        this.tables[fromTableIndex] = this.tables[tableIndex];
+        this.tables[tableIndex] = temp;
     }
     setDefaultColor(color){
         this.color = color;

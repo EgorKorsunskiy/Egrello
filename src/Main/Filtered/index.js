@@ -17,7 +17,6 @@ export const FilteredBoards = (props) => {
                 <BoardView 
                     boardState={props.boardState}
                     board={board}
-                    updateColor={props.updateColor}
                     key={index}
                 />
             )

@@ -1,19 +1,34 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import  styles  from './index.module.css';
 
 export const BoardView = (props) => {
+
+    const history = useHistory();
+    let isToDelete = false;
+
     const clickHandler = () => {
-        props.updateColor(props.board.color)
+        if(isToDelete){
+            history.replace('');
+            props.boardState.deleteBoard(props.board.id);
+        }
+        else{
+            props.boardState.currentColor = props.board.color;
+            history.push(`/board/${props.board.id}`);
+        }
+    }
+
+    const deleteClickHandler = () => {
+        history.push(`/board/${props.board.id}`);
+        props.boardState.currentColor = props.board.color;
+        isToDelete = true
     }
 
     return (
-        <Link to={`/board/${props.board.id}`} style={{textDecoration: 'none'}}>
-            <div className={styles['body']} style={{background: props.board.color}} onClick={clickHandler}>
+        <div className={styles['body']} style={{background: props.board.color}} onClick={clickHandler}>
+            <div className={styles['textContainer']}>
                 <p className={styles['p']}>{props.board.title}</p>
-                <Link to=''>
-                    <button className={styles['button']} onClick={() => props.boardState.deleteBoard(props.board.id)}>&#x2715;</button>
-                </Link>
             </div>
-        </Link>
+            <button className={styles['button']} onClick={deleteClickHandler}>&#x2715;</button>
+        </div>
     )
 }

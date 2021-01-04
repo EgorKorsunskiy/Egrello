@@ -9,7 +9,7 @@ const MAX_SYMBOLS = 30;
 export const MainPage = (props) => {
 
     const [isOpen, setIsopen] = useState(false);
-    const [color, setColor] = useState(props.boardState.getDefaultColor());
+    const [color, setColor] = useState(props.boardState.currentColor);
     const [title, setTitle] = useState('')
 
     const toggleModalWindow = () => {
