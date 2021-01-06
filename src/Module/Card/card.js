@@ -5,6 +5,7 @@ export class Card {
     id = UID();
     tableId = '';
     name = '';
+    description = '';
 
     constructor( card ){
 
