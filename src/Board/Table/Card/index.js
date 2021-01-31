@@ -21,7 +21,7 @@ export const Card = (props) => {
 
     const titleClickHandler = () => {
         setIsTitleEditing(!isTitleEditing);
-        if(!isTitleEditing && titleText){
+        if(isTitleEditing && titleText){
             props.card.name = titleText;
             setTitleText('');
         }
@@ -29,7 +29,7 @@ export const Card = (props) => {
 
     const descriptionClickHandler = () => {
         setIsDescriptionEditing(!isDescriptionEditing);
-        if(!isDescriptionEditing && descriptionText){
+        if(isDescriptionEditing && descriptionText){
             props.card.description = descriptionText;
             setDescriptionText('');
         }
@@ -72,7 +72,7 @@ export const Card = (props) => {
                                     {
                                         isDescriptionEditing?
                                         '':
-                                        props.card.name 
+                                        props.card.description 
                                     }
                                     <button className={styles['button']}
                                         style={{color:'#000',fontSize:'18px',textAlign:'center',marginLeft:'5%'}} 

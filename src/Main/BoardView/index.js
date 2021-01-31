@@ -1,4 +1,4 @@
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import  styles  from './index.module.css';
 
 export const BoardView = (props) => {

@@ -72,7 +72,7 @@ export const Board = observer((props) => {
         currentBoard.tables.filter(table => table.name.includes(props.searchText)):
         currentBoard.tables;
 
-        tables.map((table, index) => {
+        tables.forEach((table, index) => {
             Elements.push(
                 <Table 
                     table={table}

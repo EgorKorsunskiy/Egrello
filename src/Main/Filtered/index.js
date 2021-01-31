@@ -12,7 +12,7 @@ export const FilteredBoards = (props) => {
         const Elements = [];
         const filteredBoards = props.boardState.boards.filter(board => board.title.includes(props.searchText));
 
-        filteredBoards.map((board, index) => {
+        filteredBoards.forEach((board, index) => {
             Elements.push(
                 <BoardView 
                     boardState={props.boardState}

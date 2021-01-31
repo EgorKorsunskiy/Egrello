@@ -54,7 +54,7 @@ export const Table = observer((props) => {
                 fromTable.swapCards(fromCardIndex,cardIndex);
              }
              else{
-                props.table.addCardAtIndex(fromCard.name, card?cardIndex+1:0);
+                props.table.addCardAtIndex(fromCard.name, fromCard.description, card?cardIndex+1:0);
                 fromTable.deleteCard(fromCard.id);
              }
         },
@@ -76,7 +76,7 @@ export const Table = observer((props) => {
     const drawCards = () => {
         const Elements = [];
 
-        props.table.cards.map((card, index) => {
+        props.table.cards.forEach((card, index) => {
             Elements.push(
                 <Card 
                     card={card}

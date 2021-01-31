@@ -19,8 +19,9 @@ export class Table {
             new Card({tableId: this.id,name})
         );
     }
-    addCardAtIndex(name, index){
-        this.cards.splice(index, 0, new Card({tableId: this.id,name}));
+    addCardAtIndex(name, description, index){
+        console.log(description)
+        this.cards.splice(index, 0, new Card({tableId: this.id,name,description}));
     }
     swapCards(fromCardIndex, cardIndex){
         const temp = this.cards[fromCardIndex];

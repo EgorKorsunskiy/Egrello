@@ -19,7 +19,7 @@ export const MainPage = (props) => {
     const drawBoardViews = () => {
         const Elements = [];
 
-        props.boardState.boards.map((board, index) => {
+        props.boardState.boards.forEach((board, index) => {
             Elements.push(
                 <BoardView 
                     boardState={props.boardState}
@@ -36,7 +36,7 @@ export const MainPage = (props) => {
     const drawColorPickerItems = () => {
         const Elements = [];
 
-        props.boardState.availableColors.map((color, index) => {
+        props.boardState.availableColors.forEach((color, index) => {
             Elements.push(
                 <ColorPickerItem 
                     color={color}

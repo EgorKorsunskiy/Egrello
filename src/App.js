@@ -4,8 +4,6 @@ import { MainPage } from './Main';
 import { Board } from './Board';
 import { observer } from 'mobx-react-lite';
 import styles from './App.module.css';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import { FilteredBoards } from './Main/Filtered';
 
 const tinycolor = require('tinycolor2');
@@ -52,14 +50,12 @@ function App(props) {
       </header>
         <Switch>
           <Route path='/board/:id' render={() => (
-            <DndProvider backend={HTML5Backend}>
-              <Board 
-                boardState={props.boardState}
-                searchText={title}
-                isFiltered={isFiltered}
-                setIsFiltered={setIsFiltered}
-                />
-            </DndProvider>
+            <Board 
+              boardState={props.boardState}
+              searchText={title}
+              isFiltered={isFiltered}
+              setIsFiltered={setIsFiltered}
+              />
           )} />
           {
           isSearching?
