@@ -61,7 +61,7 @@
     color: #fff;
 }
 .create-input:focus{
-    filter: brightness(110%) !important;
+    filter: brightness(110%) !important; /* because of the use of primary styling by js */
 }
 .modal-create-button{
     width: 120px;

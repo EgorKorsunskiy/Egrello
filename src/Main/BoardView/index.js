@@ -1,13 +1,14 @@
+import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import  styles  from './index.module.css';
 
 export const BoardView = (props) => {
 
     const history = useHistory();
-    let isToDelete = false;
+    const isToDelete = useRef(false);
 
     const clickHandler = () => {
-        if(isToDelete){
+        if(isToDelete.current){
             history.replace('');
             props.boardState.deleteBoard(props.board.id);
         }
@@ -20,7 +21,7 @@ export const BoardView = (props) => {
     const deleteClickHandler = () => {
         history.push(`/board/${props.board.id}`);
         props.boardState.currentColor = props.board.color;
-        isToDelete = true
+        isToDelete.current = true;
     }
 
     return (

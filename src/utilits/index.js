@@ -7,3 +7,10 @@ const generateId = () => prefix + "_" + ++index;
 export const UID = () => {
     return generateId();
 }
+
+export const swap = (arr, i, j) => {
+    const temp = arr[i];
+
+    arr[i] = arr[j];
+    arr[j] = temp;
+}

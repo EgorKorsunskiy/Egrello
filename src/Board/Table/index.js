@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useState, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import { swap } from '../../utilits';
 import { Card } from './Card';
 import styles from './index.module.css';
 
@@ -51,7 +52,7 @@ export const Table = observer((props) => {
 
                 cardIndex = temp;
 
-                fromTable.swapCards(fromCardIndex,cardIndex);
+                swap(fromTable,fromCardIndex,cardIndex);
              }
              else{
                 props.table.addCardAtIndex(fromCard.name, fromCard.description, card?cardIndex+1:0);

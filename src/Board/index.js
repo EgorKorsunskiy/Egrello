@@ -4,6 +4,7 @@ import { Table } from './Table';
 import styles from './index.module.css';
 import { observer } from 'mobx-react-lite';
 import { useDrop } from 'react-dnd';
+import { swap } from '../utilits';
 
 const tinycolor = require('tinycolor2');
 const requirementClassName = '.toFindTables';
@@ -51,7 +52,6 @@ export const Board = observer((props) => {
                    minDistance = distance;
                 }
               });
-
               let tableIndex = currentBoard.tables.findIndex(table => table.id === tables[minDistanceIndex].dataset.id);
               let fromTableIndex = currentBoard.tables.findIndex(table => table.id === item.TableId);
 
@@ -60,7 +60,7 @@ export const Board = observer((props) => {
               fromTableIndex = tableIndex;
               tableIndex = tempIndex;
  
-              currentBoard.swapTables(fromTableIndex,tableIndex);
+              swap(currentBoard.tables,fromTableIndex,tableIndex);
        },
        collect: (monitor) => ({item: monitor.getItem()})
     });

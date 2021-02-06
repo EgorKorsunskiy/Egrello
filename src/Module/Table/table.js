@@ -23,12 +23,6 @@ export class Table {
         console.log(description)
         this.cards.splice(index, 0, new Card({tableId: this.id,name,description}));
     }
-    swapCards(fromCardIndex, cardIndex){
-        const temp = this.cards[fromCardIndex];
-
-        this.cards[fromCardIndex] = this.cards[cardIndex];
-        this.cards[cardIndex] = temp;
-    }
     deleteCard(cardId){
         const index = this.cards.findIndex(card => card.id === cardId);
         this.cards.splice(index, 1);

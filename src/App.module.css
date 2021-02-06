@@ -33,7 +33,7 @@ header .search-container .search-button{
   outline: none;
 }
 header .search-container .search-button:hover{
-  filter: brightness(95%) !important;
+  filter: brightness(95%) !important; /* because of the use of primary styling by js */
 }
 header .home-button{
     color: #fff;
@@ -44,5 +44,5 @@ header .home-button{
     border-radius: 5px;
 }
 header .home-button:hover{
-  filter: brightness(95%) !important;
+  filter: brightness(95%) !important; /* because of the use of primary styling by js */
 }

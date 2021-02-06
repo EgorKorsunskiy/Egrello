@@ -43,7 +43,7 @@
     color: #fff;
 }
 .input:focus{
-    filter: brightness(110%) !important;
+    filter: brightness(110%) !important; /* because of the use of primary styling by js */
 }
 .buttonContainer{
     width: 101.5%;
@@ -63,7 +63,7 @@
     width: 49%;
 }
 .button:hover{
-    filter: brightness(115%) !important;
+    filter: brightness(115%) !important; /* because of the use of primary styling by js */
 }
 .button_disable{
     width: 49%;

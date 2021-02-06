@@ -8,7 +8,7 @@
     cursor: pointer;
 }
 .body:hover{
-    filter: brightness(90%) !important;
+    filter: brightness(90%) !important; /* because of the use of primary styling by js */
 }
 .button{
     background: none;
